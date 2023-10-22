@@ -6,7 +6,7 @@
 /*   By: svaccaro <svaccaro@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 19:48:44 by svaccaro          #+#    #+#             */
-/*   Updated: 2023/10/22 23:32:45 by svaccaro         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:11:19 by svaccaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,21 @@ static void	*free_all(char **s, int i)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+static char	*next_word(const char *s, char c, size_t *i)
+{
+	size_t	word_start;
+
+	while (s[*i] && s[*i] == c)
+		(*i)++;
+	word_start = *i;
+	while (s[*i] && s[*i] != c)
+		(*i)++;
+	return (ft_substr(s, word_start, *i - word_start));
+}
+
+char	**ft_split(const char *s, char c)
 {
 	char	**ssplit;
-	size_t	wlen;
 	size_t	wcnt;
 	size_t	ci;
 	size_t	wi;
@@ -51,21 +62,10 @@ char	**ft_split(char const *s, char c)
 	wi = 0;
 	while (wi < wcnt)
 	{
-		if (s[ci] != c)
-		{
-			wlen = 0;
-			while (s[ci] != c && s[ci] != '\0')
-			{
-				ci++;
-				wlen++;
-			}
-			ssplit[wi] = ft_substr(s, ci - wlen, wlen);
-			if (!ssplit[wi])
-				return (free_all(ssplit, wi));
-			wi++;
-		}
-		else
-			ci++;
+		ssplit[wi] = next_word(s, c, &ci);
+		if (!ssplit[wi])
+			return (free_all(ssplit, wi));
+		wi++;
 	}
 	ssplit[wi] = NULL;
 	return (ssplit);
