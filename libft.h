@@ -6,7 +6,7 @@
 /*   By: svaccaro <svaccaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:20:47 by svaccaro          #+#    #+#             */
-/*   Updated: 2023/11/10 14:55:14 by svaccaro         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:05:50 by svaccaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,9 +364,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
  */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /**
- * @brief 
- * @param c
- * @return 
+ * @brief Show the memory leaks.
  */
-int	ft_putchar(int c);
+void	ft_leaks();
+
 #endif /*LIBFT_H*/
